@@ -258,13 +258,13 @@ public class DatabaseService<sp_RSSI, var_sequence, SP_info_config>
 	
 	public void update_MP_CONFIG_K(String SSID,float moving_min_K,float moving_max_K,float unmoving_min_K,float unmoving_max_K,float recommend_K,float K)
 	{
-		String sql = "update MP_CONFIG_K set moving_min_K=?,moving_max_K=?,unmoving_min_K=?,unmoving_max_K=?,recommend_K=?,K=? where SSID =\"?\"";
+		String sql = "update MP_CONFIG_K set moving_min_K=?,moving_max_K=?,unmoving_min_K=?,unmoving_max_K=?,recommend_K=?,K=? where SSID =?";
 		dbOpenHelper.getWritableDatabase().execSQL(sql,new Object[]{moving_min_K,moving_max_K,unmoving_min_K,unmoving_max_K,recommend_K,K,SSID});
 	}
 	
 	public void update_MP_CONFIG_moving_K(String SSID,float moving_min_K,float moving_max_K)
 	{
-		String sql = "update MP_CONFIG_K set movin_min_K=?,moving_max_K=? where SSID =\"?\"";
+		String sql = "update MP_CONFIG_K set movin_min_K=?,moving_max_K=? where SSID =?";
 		dbOpenHelper.getWritableDatabase().execSQL(sql,new Object[]{moving_min_K,moving_max_K,SSID});
 	}
 	
