@@ -327,13 +327,13 @@ public class ContentFragmentView1 extends Fragment
 						if (moving_K[0] > Math.abs(inc))
 							moving_K[0] = Math.abs(inc);
 						if (moving_K[1] < Math.abs(inc))
-							moving_K[0] = Math.abs(inc);
+							moving_K[1] = Math.abs(inc);
 					} else
 					{
 						if (unmoving_K[0] > Math.abs(inc))
 							unmoving_K[0] = Math.abs(inc);
 						if (unmoving_K[1] < Math.abs(inc))
-							unmoving_K[0] = Math.abs(inc);
+							unmoving_K[1] = Math.abs(inc);
 					}
 					mp_config_K.set_moving_K(moving_K[0], moving_K[1]);
 					mp_config_K.set_unmoving_K(unmoving_K[0], unmoving_K[1]);
