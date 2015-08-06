@@ -376,7 +376,7 @@ public class ContentFragmentView1 extends Fragment
 		mean = sum / dataset.size();
 		for (int j = 0; j < dataset.size(); j++)
 		{
-			sum_1 += ((dataset.size() - mean) * (dataset.size() - mean));
+			sum_1 += ((dataset.get(j) - mean) * (dataset.get(j) - mean));
 		}
 		var = sum_1 / dataset.size();
 		return var;
