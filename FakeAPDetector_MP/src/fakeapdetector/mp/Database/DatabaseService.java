@@ -34,7 +34,7 @@ public class DatabaseService<sp_RSSI, var_sequence, SP_info_config>
 				.getWritableDatabase()
 				.execSQL(
 						"CREATE TABLE IF NOT EXISTS SP_info_config(ID integer primary key autoincrement, SSID text, Window integer,Threshold real ,Collecting_speed integer,Safe_max_var real)");// SP_info_config<ÅäÖÃÐÅÏ¢>
-		dbOpenHelper.getWritableDatabase().execSQL("CREATE TABLE IF NOT EXISTS MP_CONFIG_K(ID integer primary key autoincrement, SSID text,moving_min_K real,moving_max_K real,unmoving_min_K real,unmoving_max_K real,recommand_K real,K real)");
+		dbOpenHelper.getWritableDatabase().execSQL("CREATE TABLE IF NOT EXISTS MP_CONFIG_K(ID integer primary key autoincrement, SSID text,moving_min_K real,moving_max_K real,unmoving_min_K real,unmoving_max_K real,recommend_K real,K real)");
 	}
 
 	public void dropTable(String tableName)
@@ -166,9 +166,9 @@ public class DatabaseService<sp_RSSI, var_sequence, SP_info_config>
 	{
 		dbOpenHelper.getWritableDatabase().execSQL("insert into MP_CONFIG_K(SSID) values(?)", new Object[]{ SSID });
 	}
-	public void insert_into_MP_CONFIG_K(String SSID,float moving_min_K,float moving_max_K,float unmoving_min_K,float unmoving_max_K,float recommand_K,float K)
+	public void insert_into_MP_CONFIG_K(String SSID,float moving_min_K,float moving_max_K,float unmoving_min_K,float unmoving_max_K,float recommend_K,float K)
 	{
-		dbOpenHelper.getWritableDatabase().execSQL("insert into MP_CONFIG_K(SSID,moving_min_K,moving_max_K,unmoving_min_K,unmoving_max_K,recommand_K,K) values(\"?\",?,?,?,?,?,?)", new Object[]{ SSID,moving_min_K,moving_max_K,unmoving_min_K,unmoving_max_K,recommand_K,K });
+		dbOpenHelper.getWritableDatabase().execSQL("insert into MP_CONFIG_K(SSID,moving_min_K,moving_max_K,unmoving_min_K,unmoving_max_K,recommend_K,K) values(?,?,?,?,?,?,?)", new Object[]{ SSID,moving_min_K,moving_max_K,unmoving_min_K,unmoving_max_K,recommend_K,K });
 	}
 
 	double threshold = 0;
@@ -223,7 +223,7 @@ public class DatabaseService<sp_RSSI, var_sequence, SP_info_config>
 	
 	public MP_CONFIG_K get_MP_CONFIG_K(String SSID)
 	{
-		String sql = "select moving_min_k,moving_max_k,unmoving_min_k,unmoving_max_k,recommand_K,K from MP_CONFIG_K where SSID=\"" + SSID + "\"";
+		String sql = "select moving_min_k,moving_max_k,unmoving_min_k,unmoving_max_k,recommend_K,K from MP_CONFIG_K where SSID=\"" + SSID + "\"";
 		Cursor cursor = dbOpenHelper.getReadableDatabase().rawQuery(sql, null);
 
 		MP_CONFIG_K m_con_k = new MP_CONFIG_K();
@@ -232,7 +232,7 @@ public class DatabaseService<sp_RSSI, var_sequence, SP_info_config>
 		{
 			m_con_k.set_moving_K(cursor.getFloat(0), cursor.getFloat(1));
 			m_con_k.set_unmoving_K(cursor.getFloat(2), cursor.getFloat(3));
-			m_con_k.set_recommand_K(cursor.getFloat(4));
+			m_con_k.set_recommend_K(cursor.getFloat(4));
 			m_con_k.set_K(cursor.getFloat(5));
 			m_con_k.set_SSID(SSID);
 		}
@@ -256,10 +256,10 @@ public class DatabaseService<sp_RSSI, var_sequence, SP_info_config>
 		dbOpenHelper.getWritableDatabase().execSQL(sql);
 	}
 	
-	public void update_MP_CONFIG_K(String SSID,float moving_min_K,float moving_max_K,float unmoving_min_K,float unmoving_max_K,float recommand_K,float K)
+	public void update_MP_CONFIG_K(String SSID,float moving_min_K,float moving_max_K,float unmoving_min_K,float unmoving_max_K,float recommend_K,float K)
 	{
-		String sql = "update MP_CONFIG_K set movin_min_K=?,moving_max_K=?,unmoving_min_K=?,unmoving_max_K=?,recommand_K=?,K=? where SSID =\"?\"";
-		dbOpenHelper.getWritableDatabase().execSQL(sql,new Object[]{moving_min_K,moving_max_K,unmoving_min_K,unmoving_max_K,recommand_K,K,SSID});
+		String sql = "update MP_CONFIG_K set moving_min_K=?,moving_max_K=?,unmoving_min_K=?,unmoving_max_K=?,recommend_K=?,K=? where SSID =\"?\"";
+		dbOpenHelper.getWritableDatabase().execSQL(sql,new Object[]{moving_min_K,moving_max_K,unmoving_min_K,unmoving_max_K,recommend_K,K,SSID});
 	}
 	
 	public void update_MP_CONFIG_moving_K(String SSID,float moving_min_K,float moving_max_K)

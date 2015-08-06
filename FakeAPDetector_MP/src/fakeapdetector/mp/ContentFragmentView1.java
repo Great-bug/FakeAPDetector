@@ -30,12 +30,13 @@ import android.widget.RadioGroup.OnCheckedChangeListener;
 public class ContentFragmentView1 extends Fragment
 {
 	private WifiManager wm;
+	private String wserviceName;
 	private List<ScanResult> results = new ArrayList<ScanResult>();
 	private phone_Move pm;
 	private TextView TX_task_state = null;
 	private TextView TX_moving_K = null;
 	private TextView TX_unmoving_K = null;
-	private TextView TX_recommand_K = null;
+	private TextView TX_recommend_K = null;
 	private Handler handler = new Handler();
 	private Button btn_data_slice = null;
 	private Button btn_moving_detect = null;
@@ -56,12 +57,12 @@ public class ContentFragmentView1 extends Fragment
 	int workset_size = 0;
 	int rssi;
 	float var;
-	int sum = 0;
 	private List<Integer> work_set;
 	private Context ctx;
 
 	float[] moving_K, unmoving_K;
 	float manual_K;
+	float last_var = 0;
 
 	@Override
 	public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState)
@@ -76,9 +77,15 @@ public class ContentFragmentView1 extends Fragment
 		RDG_moving_state = (RadioGroup) rootView.findViewById(R.id.id_Moving_RadioGroup);
 		timer = (Chronometer) rootView.findViewById(R.id.cmt_task_time);
 		TX_task_state = (TextView) rootView.findViewById(R.id.id_task_state);
+		TX_moving_K = (TextView) rootView.findViewById(R.id.id_moving_K);
+		TX_unmoving_K = (TextView) rootView.findViewById(R.id.id_unmoving_K);
+		TX_recommend_K = (TextView) rootView.findViewById(R.id.id_recommend_K);
 		my_WaveView = (WaveView) rootView.findViewById(R.id.id_waveview);
 		ctx = getActivity();
 		mp_config_K = new MP_CONFIG_K(ctx);
+		
+		wserviceName = Context.WIFI_SERVICE;
+		wm = (WifiManager) getActivity().getSystemService(wserviceName);
 
 		work_set = new ArrayList<Integer>();
 		moving = false;
@@ -209,6 +216,7 @@ public class ContentFragmentView1 extends Fragment
 			}).start();
 
 			timer.stop();
+			mp_config_K.commit();
 			isCacing_K = false;
 		} else
 		{
@@ -251,14 +259,13 @@ public class ContentFragmentView1 extends Fragment
 									+ " ]");
 							TX_unmoving_K.setText("[ " + String.valueOf(mp_config_K.get_unmoving_min_K()) + " , "
 									+ String.valueOf(mp_config_K.get_unmoving_max_K()) + " ]");
-							TX_recommand_K.setText(String.valueOf(mp_config_K.get_recommand_K()));
+							TX_recommend_K.setText(String.valueOf(mp_config_K.get_recommend_K()));
 							Edit_K.setText(String.valueOf(mp_config_K.get_K()));
 						}
 					});
 				}
 			}).start();
 			workset_size = 0;
-			sum = 0;
 			work_set.clear();
 			isCacing_K = true;
 			Start_calculate_K();
@@ -306,53 +313,31 @@ public class ContentFragmentView1 extends Fragment
 					work_set.add(rssi);
 				} else if (workset_size == window)
 				{
-					var = (float) sum / (float) window;
+					last_var = getVariance(work_set);
 					workset_size++;
-					new Thread(new Runnable()
-					{
-						@Override
-						public void run()
-						{
-							handler.post(new Runnable()
-							{
-								@Override
-								public void run()
-								{
-									my_WaveView.clear();
-									my_WaveView.DrawWave(var);
-								}
-							});
-						}
-					}).start();
 				} else
 				{
-					sum = sum - (work_set.get(0)) + rssi;
-					var = (float) sum / (float) window;
 					work_set.add(rssi);
 					work_set.remove(0);
-					workset_size++;
-					if (max_var < var)
+					var = getVariance(work_set);
+					float inc = var - last_var;
+					last_var = var;
+					if (moving)
 					{
-						max_var = var;
-						threshold = max_var;
-						DS.update_SP_info_config_maxvar_threshold(ssid_scan, max_var, threshold);
-						// DS.update_SP_info_config_maxvar(ssid_scan, max_var);
-						new Thread(new Runnable()
-						{
-							@Override
-							public void run()
-							{
-								handler.post(new Runnable()
-								{
-									@Override
-									public void run()
-									{
-										TX_safemaxvar.setText(String.valueOf(max_var));
-									}
-								});
-							}
-						}).start();
+						if (moving_K[0] > Math.abs(inc))
+							moving_K[0] = Math.abs(inc);
+						if (moving_K[1] < Math.abs(inc))
+							moving_K[0] = Math.abs(inc);
+					} else
+					{
+						if (unmoving_K[0] > Math.abs(inc))
+							unmoving_K[0] = Math.abs(inc);
+						if (unmoving_K[1] < Math.abs(inc))
+							unmoving_K[0] = Math.abs(inc);
 					}
+					mp_config_K.set_moving_K(moving_K[0], moving_K[1]);
+					mp_config_K.set_unmoving_K(unmoving_K[0], unmoving_K[1]);
+					workset_size++;
 					new Thread(new Runnable()
 					{
 						@Override
@@ -363,14 +348,16 @@ public class ContentFragmentView1 extends Fragment
 								@Override
 								public void run()
 								{
-									my_WaveView.clear();
-									my_WaveView.DrawThreshold(threshold);
-									my_WaveView.DrawWave(var);
+									TX_moving_K.setText("[ " + String.valueOf(mp_config_K.get_moving_min_K()) + " , " + String.valueOf(mp_config_K.get_moving_max_K())
+											+ " ]");
+									TX_unmoving_K.setText("[ " + String.valueOf(mp_config_K.get_unmoving_min_K()) + " , "
+											+ String.valueOf(mp_config_K.get_unmoving_max_K()) + " ]");
+									TX_recommend_K.setText(String.valueOf(mp_config_K.get_recommend_K()));
+									Edit_K.setText(String.valueOf(mp_config_K.get_K()));
 								}
 							});
 						}
 					}).start();
-
 				}
 			}
 		}
@@ -382,14 +369,14 @@ public class ContentFragmentView1 extends Fragment
 		float sum_1 = 0;
 		float mean = 0;
 		float var = 0;
-		for (int i = 0; i<dataset.size(); i++)
+		for (int i = 0; i < dataset.size(); i++)
 		{
 			sum += dataset.get(i);
 		}
 		mean = sum / dataset.size();
 		for (int j = 0; j < dataset.size(); j++)
 		{
-			sum_1 += ((dataset.size() - mean)*(dataset.size() - mean));
+			sum_1 += ((dataset.size() - mean) * (dataset.size() - mean));
 		}
 		var = sum_1 / dataset.size();
 		return var;

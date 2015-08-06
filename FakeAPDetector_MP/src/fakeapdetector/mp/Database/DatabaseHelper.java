@@ -44,7 +44,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
 		Log.e("DatabaseHelper", "DatabaseHelperDatabaseHelperDatabaseHelper");
 		db.execSQL("CREATE TABLE IF NOT EXISTS SP_AP_TABLE(ID integer primary key autoincrement, SSID text)");//sp_RSSI<存储RSSI>
 	//	db.execSQL("CREATE TABLE IF NOT EXISTS sp_RSSI(ID integer primary key autoincrement, SSID text,RSSI integer )");//sp_RSSI<存储RSSI>
-	//	db.execSQL("CREATE TABLE IF NOT EXISTS var_sequence(ID integer primary key autoincrement, SSID text,Var integer )");//var_sequence<RSSI均值>
+		db.execSQL("CREATE TABLE IF NOT EXISTS MP_CONFIG_K(ID integer primary key autoincrement, SSID text,moving_min_K real,moving_max_K real,unmoving_min_K real,unmoving_max_K real,recommend_K real,K real)");//var_sequence<RSSI均值>
 		db.execSQL("CREATE TABLE IF NOT EXISTS SP_info_config(ID integer primary key autoincrement, SSID text, Window integer,Threshold real ,Collecting_speed integer,Safe_max_var real)");//SP_info_config<配置信息>
 	}
 
