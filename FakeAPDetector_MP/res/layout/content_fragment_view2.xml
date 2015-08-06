@@ -1,0 +1,293 @@
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@android:color/black"
+    android:orientation="vertical"
+    tools:context="fakeapdetector.mp.ContentFragmentView2" >
+
+    <TableLayout
+        android:id="@+id/AP_Table"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/lime"
+        android:stretchColumns="0,1,2,3" >
+
+        <TableRow
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="0.5dip"
+            android:layout_marginLeft="2dip"
+            android:layout_marginRight="2dip"
+            android:layout_marginTop="2dip"
+            android:background="@android:color/black" >
+
+            <TextView
+                android:layout_gravity="left"
+                android:padding="3dip"
+                android:text="SSID"
+                android:textColor="#00FF00"
+                android:textStyle="bold" />
+
+            <TextView
+                android:layout_gravity="center"
+                android:padding="3dip"
+                android:text="MAC"
+                android:textColor="#00FF00"
+                android:textStyle="bold" />
+
+            <TextView
+                android:layout_gravity="center"
+                android:padding="6dip"
+                android:text="channel"
+                android:textColor="#00FF00"
+                android:textStyle="bold" />
+
+            <TextView
+                android:layout_gravity="right"
+                android:padding="6dip"
+                android:text=" RSSI"
+                android:textColor="#00FF00"
+                android:textStyle="bold" />
+        </TableRow>
+
+        <TableRow
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="0.5dip"
+            android:layout_marginLeft="2dip"
+            android:layout_marginRight="2dip"
+            android:layout_marginTop="0.5dip"
+            android:background="@android:color/black" >
+
+            <TextView
+                android:id="@+id/id_ssid_1"
+                android:layout_gravity="left"
+                android:padding="3dip"
+                android:textColor="@android:color/holo_green_light"
+                android:textStyle="bold" />
+
+            <TextView
+                android:id="@+id/id_mac_1"
+                android:layout_gravity="center"
+                android:padding="3dip"
+                android:textColor="@android:color/holo_green_light"
+                android:textStyle="bold" />
+
+            <TextView
+                android:id="@+id/id_channel_1"
+                android:layout_gravity="center"
+                android:padding="6dip"
+                android:textColor="@android:color/holo_green_light"
+                android:textStyle="bold" />
+
+            <TextView
+                android:id="@+id/id_rssi_1"
+                android:layout_gravity="right"
+                android:padding="6dip"
+                android:textColor="@android:color/holo_green_light"
+                android:textStyle="bold" />
+        </TableRow>
+
+        <TableRow
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="2dip"
+            android:layout_marginLeft="2dip"
+            android:layout_marginRight="2dip"
+            android:layout_marginTop="0.5dip"
+            android:background="@android:color/black" >
+
+            <TextView
+                android:id="@+id/id_ssid_2"
+                android:layout_gravity="left"
+                android:padding="3dip"
+                android:textColor="@android:color/holo_green_light"
+                android:textStyle="bold" />
+
+            <TextView
+                android:id="@+id/id_mac_2"
+                android:layout_gravity="center"
+                android:padding="3dip"
+                android:textColor="@android:color/holo_green_light"
+                android:textStyle="bold" />
+
+            <TextView
+                android:id="@+id/id_channel_2"
+                android:layout_gravity="center"
+                android:padding="6dip"
+                android:textColor="@android:color/holo_green_light"
+                android:textStyle="bold" />
+
+            <TextView
+                android:id="@+id/id_rssi_2"
+                android:layout_gravity="right"
+                android:padding="6dip"
+                android:textColor="@android:color/holo_green_light"
+                android:textStyle="bold" />
+        </TableRow>
+    </TableLayout>
+
+    <TableLayout
+        android:id="@+id/id_Scan_Layout"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:stretchColumns="0,1" >
+
+        <TableRow
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="2dip" >
+
+            <Button
+                android:id="@+id/id_button_Scan"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_vertical"
+                android:text="开始扫描"
+                android:textColor="@android:color/white" >
+            </Button>
+        </TableRow>
+    </TableLayout>
+
+    <TableLayout
+        android:id="@+id/AP_SSID_LIST"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_above="@id/id_Scan_Layout"
+        android:layout_marginBottom="4dip"
+        android:layout_marginTop="4dip"
+        android:background="@color/lime"
+        android:stretchColumns="0,1" >
+
+        <TableRow
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="0.5dip"
+            android:layout_marginLeft="2dip"
+            android:layout_marginRight="2dip"
+            android:layout_marginTop="2dip"
+            android:background="@android:color/black" >
+
+            <TextView
+                android:layout_gravity="left|center_vertical"
+                android:padding="3dip"
+                android:text="AP1 SSID:"
+                android:textColor="#00FF00"  />
+
+            <EditText
+                android:id="@+id/id_ssid_input_1"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:hint="请输入第一个AP的SSID"
+                android:textColor="@android:color/white" />
+        </TableRow>
+
+        <TableRow
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="2dip"
+            android:layout_marginLeft="2dip"
+            android:layout_marginRight="2dip"
+            android:layout_marginTop="0.5dip"
+            android:background="@android:color/black" >
+
+            <TextView
+                android:layout_gravity="left|center_vertical"
+                android:padding="3dip"
+                android:text="AP2 SSID:"
+                android:textColor="#00FF00" />
+
+            <EditText
+                android:id="@+id/id_ssid_input_2"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:hint="请输入第二个AP的SSID"
+                android:textColor="@android:color/white" />
+        </TableRow>
+    </TableLayout>
+
+    <TableLayout
+        android:id="@+id/Info_Layout"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_above="@id/AP_SSID_LIST"
+        android:layout_marginBottom="4dip"
+        android:layout_marginTop="4dip"
+        android:background="#00FF00"
+        android:stretchColumns="0,1" >
+
+        <TableRow
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="0.5dip"
+            android:layout_marginLeft="2dip"
+            android:layout_marginRight="2dip"
+            android:layout_marginTop="2dip"
+            android:background="@android:color/black" >
+
+            <TextView
+                android:layout_gravity="left"
+                android:padding="3dip"
+                android:text="Wi-Fi状态:"
+                android:textColor="#00FF00"
+                android:textStyle="bold" />
+
+            <TextView
+                android:id="@+id/id_wifi_state"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:text="Unknown"
+                android:textColor="#00FF00" />
+        </TableRow>
+
+        <TableRow
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="2dip"
+            android:layout_marginLeft="2dip"
+            android:layout_marginRight="2dip"
+            android:layout_marginTop="0.5dip"
+            android:background="@android:color/black" >
+
+            <TextView
+                android:layout_gravity="left"
+                android:padding="3dip"
+                android:text="扫描时间:"
+                android:textColor="#00FF00"
+                android:textStyle="bold" />
+
+            <Chronometer
+                android:id="@+id/chronometer1"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:layout_gravity="left"
+                android:format="%s"
+                android:textColor="#00FF00" />
+        </TableRow>
+    </TableLayout>
+
+    <TableLayout
+        android:id="@+id/id_curve_table"
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent"
+        android:layout_above="@id/Info_Layout"
+        android:layout_below="@id/AP_Table"
+        android:layout_marginBottom="2dip"
+        android:layout_marginTop="2dip"
+        android:background="@color/lime" >
+
+        <fakeapdetector.mp.WaveView
+            android:id="@+id/id_waveview"
+            android:layout_width="fill_parent"
+            android:layout_height="fill_parent"   
+            android:layout_marginBottom="2dip"
+            android:layout_marginLeft="2dip"
+            android:layout_marginRight="2dip"
+            android:layout_marginTop="2dip"
+            android:background="@android:color/black" >
+        </fakeapdetector.mp.WaveView>
+    </TableLayout>
+
+</RelativeLayout>

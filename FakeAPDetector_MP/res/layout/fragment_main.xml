@@ -1,0 +1,19 @@
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="fakeapdetector.mp.MainFragment" >
+
+<fragment  
+        android:id="@+id/id_fragment_title"  
+        android:name="fakeapdetector.mp.TittleFragment"  
+        android:layout_width="fill_parent"  
+        android:layout_height="45dp" /> 
+        
+<fragment  
+        android:id="@+id/id_fragment_content"  
+        android:name="fakeapdetector.mp.ContentFragmentView1"  
+        android:layout_width="fill_parent"  
+        android:layout_height="fill_parent" />
+
+</RelativeLayout>

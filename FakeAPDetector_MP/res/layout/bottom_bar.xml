@@ -1,0 +1,49 @@
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="90dp"
+    android:background="@android:color/black"
+    android:textColor="#00FF00" >
+
+    <RadioGroup
+        android:id="@+id/id_ViewRadioGroup"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:contentDescription="View" >
+
+                <RadioButton
+                    android:id="@+id/id_first_view"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:checked="true"
+                    android:text="数据分割"
+                    android:textColor="#00FF00" >
+                </RadioButton>
+
+                <RadioButton
+                    android:id="@+id/id_second_view"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="参考AP"
+                    android:textColor="#00FF00" >
+                </RadioButton>
+
+                <RadioButton
+                    android:id="@+id/id_third_view"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="检测"
+                    android:textColor="#00FF00" >
+                </RadioButton>
+
+                <RadioButton
+                    android:id="@+id/id_fourth_view"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="检测"
+                    android:textColor="#00FF00" >
+                </RadioButton>
+    </RadioGroup>
+
+</LinearLayout>
