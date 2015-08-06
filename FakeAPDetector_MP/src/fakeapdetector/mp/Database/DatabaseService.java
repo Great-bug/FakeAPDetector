@@ -375,6 +375,11 @@ public class DatabaseService<sp_RSSI, var_sequence, SP_info_config>
 		dbOpenHelper.close();
 	}
 	
+	public void branchtest()
+	{
+		dbOpenHelper.close();
+	}
+	
 	
 
 }
