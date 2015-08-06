@@ -97,7 +97,7 @@ public class MP_CONFIG_K
 	}
 	public float get_unmoving_max_K()
 	{
-		return this.moving_max_K;
+		return this.unmoving_max_K;
 	}
 	public float get_recommend_K()
 	{
